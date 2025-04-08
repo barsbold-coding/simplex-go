@@ -23,7 +23,7 @@ func (n Fraction) gcd() int {
   }
 }
 
-func (n *Fraction) simplify() {
+func (n *Fraction) Simplify() {
   f := n.gcd();
   n.D /= f
   n.N /= f
@@ -53,7 +53,7 @@ func Read(n *Fraction) {
     n.D, _ = strconv.Atoi(parts[1])
   }
 
-  n.simplify()
+  n.Simplify()
 }
 
 func Print(n *Fraction, p uint) {
@@ -75,28 +75,28 @@ func Print(n *Fraction, p uint) {
 func Add(a, b Fraction) (res Fraction) {
   res.N = a.N * b.D + a.D * b.N
   res.D = a.D * b.D
-  res.simplify()
+  res.Simplify()
   return
 }
 
 func Sub(a, b Fraction) (res Fraction) {
   res.N = a.N * b.D - b.N * a.D
   res.D = a.D * b.D
-  res.simplify()
+  res.Simplify()
   return
 }
 
 func Mul(a, b Fraction) (res Fraction) {
   res.N = a.N * b.N
   res.D = a.D * b.D
-  res.simplify()
+  res.Simplify()
   return
 }
 
 func Div(a, b Fraction) (res Fraction) {
   res.N = a.N * b.D
   res.D = a.D * b.N
-  res.simplify()
+  res.Simplify()
   return
 }
 

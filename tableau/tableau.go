@@ -14,6 +14,25 @@ type Tableau struct {
   IsMaximization bool // To track if we're maximizing or minimizing
 }
 
+func (t *Tableau) ResetDirt() {
+  for i := range t.dirtX {
+    t.dirtX[i] = false
+  }
+  for i := range t.dirtY {
+    t.dirtX[i] = false
+  }
+}
+
+func (t *Tableau) PrintDirt() {
+  for i := range t.dirtX {
+    print(t.dirtX[i], " ")
+  }
+  println()
+  for i := range t.dirtY {
+    print(t.dirtX[i], " ")
+  }
+}
+
 func (t *Tableau) Copy() Tableau {
   copyTable := make([][]fr.Fraction, len(t.Table))
   for i := range t.Table {
@@ -82,7 +101,6 @@ func (t *Tableau) isValidCell(i, j int) bool {
   return !t.dirtX[j] && !t.dirtY[i] && t.Table[i][j].N != 0
 }
 
-// Improved pivot selection based on optimization criteria
 func (t *Tableau) Pivot() (int, int) {
   m := len(t.Table)    // Number of rows
   n := len(t.Table[0]) // Number of columns
@@ -111,7 +129,6 @@ func (t *Tableau) Pivot() (int, int) {
   }
   
   if s == -1 {
-    // No suitable entering variable found - optimal solution reached
     return -1, -1
   }
   
